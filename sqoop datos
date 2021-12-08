@@ -1,0 +1,13 @@
+sqoop list-databases \
+	--connect jdbc:mysql://93.189.90.61:3306/menagerie \
+	--username menagerie \
+	--password menagerie
+
+
+sqoop list-tables --connect jdbc:mysql://93.189.90.61:3306/menagerie --username menagerie --password menagerie
+
+
+sqoop eval --connect jdbc:mysql://93.189.90.61:3306/menagerie --username menagerie --password menagerie --query "select * from event"
+
+
+sqoop import-all-tables --connect jdbc:mysql://93.189.90.61:3306/menagerie --username menagerie --password menagerie -m 1

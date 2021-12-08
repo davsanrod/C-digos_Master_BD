@@ -1,0 +1,29 @@
+# Name the components on this agent
+agent2.sources = spoldir-source-BiciMad
+agent2.channels = memory-channel
+agent2.sinks = estaciones-sink
+
+# Describe/configure source
+agent2.sources.spooldir-source-BiciMad.type = spooldir
+agent2.sources.spooldir-source-BiciMad.poolDir = datos_mov
+agent2.sources.spooldir-source-BiciMad.deserializer.type = LINE
+agent2.sources.spooldir-source-BiciMad.deserializer.outputCharset = UTF-8
+agent2.sources.spooldir-source-BiciMad.deserializer.maxLineLength = 1000000000
+
+# Use a channel with buffers events memory
+agent2.channels.memory-channel.type = file
+
+# Describe the sink
+agent2.sinks.estaciones-sink.type = hdfs
+agent2.sinks.estaciones-sink.channel = memory-channel
+agent2.sinks.estaciones-sink.hdfs.path = ..estaticos/datos_mov
+agent2.sinks.estaciones-sink.hdfs.filePrefix = Event
+agent2.sinks.estaciones-sink.hdfs.rollSize = 0
+agent2.sinks.estaciones-sink.hdfs.rollCount = 0
+agent2.sinks.estaciones-sink.hdfs.rollInterval = 10
+agent2.sinks.estaciones-sink.hdfs.fileType = DataStream
+
+# Bind the source and sink to the channel
+agent2.sources.spooldir-source-BiciMad.channels = memory-channel
+agent2.sinks.estaciones-sink.channel = memory-channel
+
